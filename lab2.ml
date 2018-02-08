@@ -113,8 +113,19 @@ Reimplement max_list, but this time, it should return an int option
 instead of an int.
 ......................................................................*)
 
+(* let rec max_list (lst : int list) : int option =
+  match lst with
+  | [] -> None
+  | [num] -> num
+  | head :: tail ->  max head (max_list tail) ;; *)
+
+let rec max_list_inner (lst : int list) : int =
+  match lst with
+  | [elt] -> elt
+  | head :: tail -> max head (max_list_inner tail) ;;
+
 let max_list (lst : int list) : int option =
-  failwith "max_list not implemented" ;;
+  if lst = [] then None else Some (max_list_inner lst);;
   
 (*......................................................................
 Exercise 5: Write a function to return the smaller of two int options,
